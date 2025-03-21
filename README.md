@@ -1,7 +1,9 @@
 # Chatbot-using-Python
-Build a chatbot using deep learning techniques. The chatbot will be trained on the dataset which contains categories (intents), pattern and responses. We use a special recurrent neural network (LSTM) to classify which category the user’s message belongs to and then we will give a random response from the list of responses.
+Build a chatbot using deep learning techniques. The chatbot will be trained on the dataset which contains categories (intents), pattern and responses. We use a special recurrent neural network (LSTM) to classify which category the user’s message belongs to and then we will give a random response from the list of responses. You can create another dataset and train the chatbot, in this project we use basic "Medical Guidance Assist" dataset.  
 
 :white_check_mark: ## Getting Started 
+
+- [x] To use this project you need to download python 3.11.0 or lower versions of 3.11 . As tensorflow module doesn't work in latest version in python.
 
 - [x] Download all the files
 

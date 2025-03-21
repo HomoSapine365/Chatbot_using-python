@@ -1,4 +1,4 @@
-#https://github.com/tridibsamanta/Chatbot-using-Python
+#https://github.com/HomoSapine365/Chatbot-using-Python
 
 import nltk
 from nltk.stem import WordNetLemmatizer
@@ -27,36 +27,46 @@ def clean_up_sentence(sentence):
 def bow(sentence, words, show_details=True):
     # tokenize the pattern
     sentence_words = clean_up_sentence(sentence)
+    print(f"Sentence words: {sentence_words}")  # Debugging print statement
     # bag of words - matrix of N words, vocabulary matrix
-    bag = [0]*len(words)  
+    bag = [0] * len(words)  
     for s in sentence_words:
         for i,w in enumerate(words):
             if w == s: 
                 # assign 1 if current word is in the vocabulary position
                 bag[i] = 1
                 if show_details:
-                    print ("found in bag: %s" % w)
-    return(np.array(bag))
+                    print (f"found in bag: {w}")
+
+    print(f"Bag of words: {bag}")  # Debugging print statement
+    return np.array(bag)
 
 def predict_class(sentence, model):
     # filter out predictions below a threshold
-    p = bow(sentence, words,show_details=False)
+    p = bow(sentence, words, show_details=False)
     res = model.predict(np.array([p]))[0]
     ERROR_THRESHOLD = 0.25
-    results = [[i,r] for i,r in enumerate(res) if r>ERROR_THRESHOLD]
+    results = [[i,r] for i,r in enumerate(res) if r > ERROR_THRESHOLD]
+
+    print(f"Filtered results: {results}")  # Debugging print statement
+
     # sort by strength of probability
     results.sort(key=lambda x: x[1], reverse=True)
+
     return_list = []
     for r in results:
         return_list.append({"intent": classes[r[0]], "probability": str(r[1])})
+    print(f"Prediction results: {results}")    
     return return_list
 
 def getResponse(ints, intents_json):
     tag = ints[0]['intent']
+    print(f"Predicted intent: {tag}")  # Debugging print statement
     list_of_intents = intents_json['intents']
     for i in list_of_intents:
-        if(i['tag']== tag):
+        if i['tag']== tag:
             result = random.choice(i['responses'])
+            print(f"Bot Response: {result}")  # Debugging print statement
             break
     return result
 
@@ -73,6 +83,7 @@ from tkinter import *
 
 def send():
     msg = EntryBox.get("1.0",'end-1c').strip()
+    print(f"User message: {msg}")  # Debugging print statement
     EntryBox.delete("0.0",END)
 
     if msg != '':
